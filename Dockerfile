@@ -9,6 +9,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Copy your WordPress website files into the container
+COPY .env /var/www/html/.env
 COPY . /var/www/html
 
 # Copy Nginx configuration file
