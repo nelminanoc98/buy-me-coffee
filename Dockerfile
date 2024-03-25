@@ -12,6 +12,8 @@ RUN apt-get update && \
 COPY .env /var/www/html/.env
 COPY . /var/www/html
 
+RUN cat /var/ww/html/.env
+
 # Copy Nginx configuration file
 COPY nginx.conf /etc/nginx/sites-enabled/default
 
