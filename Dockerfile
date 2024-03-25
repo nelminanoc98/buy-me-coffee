@@ -9,7 +9,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-COPY composer.json composer.lock ./
+COPY composer.json ./
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 # Verify Composer installation
