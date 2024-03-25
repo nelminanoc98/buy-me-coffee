@@ -1,0 +1,33 @@
+steps:
+  # Build the container image
+  - id: "build"
+    name: "gcr.io/cloud-builders/docker"
+    args:
+      ["build", "-t", "gcr.io/$PROJECT_ID/buy-me-coffee-web:$COMMIT_SHA", "."]
+  # Push the container image to Container Registry
+  - id: "push"
+    name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/$PROJECT_ID/buy-me-coffee-web:$COMMIT_SHA"]
+  # Deploy container image to Cloud Run
+  - id: "deploy"
+    name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: gcloud
+    args:
+      [
+        "run",
+        "deploy",
+        "buy-me-coffee-web",
+        "--image",
+        "gcr.io/$PROJECT_ID/buy-me-coffee-web:$COMMIT_SHA",
+        "--region",
+        "asia-southeast1",
+        "--platform",
+        "managed",
+        "--allow-unauthenticated",
+        "--port",
+        "3000",
+      ]
+      #options:
+      #logging: CLOUD_LOGGING_ONLY
+images:
+  - gcr.io/$PROJECT_ID/buy-me-coffee-web
