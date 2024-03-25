@@ -1,15 +1,19 @@
 steps:
   # Build the container image
-  - id: "build"
-    name: "gcr.io/cloud-builders/docker"
-    args:
-      ["build", "-t", "gcr.io/$PROJECT_ID/buy-me-coffee-web:$COMMIT_SHA", "."]
+  - id: "env"
+    name: node:10.15.1
+    entrypoint: npm
+    args: ["run", "create-env"]
     env:
       - "DB_NAME=$_DB_NAME"
       - "DB_USER=$_DB_USER"
       - "DB_PASSWORD=$_DB_PASSWORD"
       - "DB_HOST=$_DB_HOST"
-  # Push the container image to Container Registry
+  - id: "build"
+    name: "gcr.io/cloud-builders/docker"
+    args:
+      ["build", "-t", "gcr.io/$PROJECT_ID/buy-me-coffee-web:$COMMIT_SHA", "."]
+      # Push the container image to Container Registry
   - id: "push"
     name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/buy-me-coffee-web:$COMMIT_SHA"]
