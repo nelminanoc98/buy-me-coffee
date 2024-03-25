@@ -5,6 +5,7 @@ steps:
     script: |
       #!/usr/bin/env bash
       printenv > .env
+      cat .env
     env:
       - "DB_NAME=$_DB_NAME"
       - "DB_USER=$_DB_USER"
