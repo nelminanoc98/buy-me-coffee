@@ -1,9 +1,10 @@
 steps:
   # Build the container image
   - id: "env"
-    name: node:10.15.1
-    entrypoint: npm
-    args: ["run", "create-env"]
+    name: "bash"
+    script: |
+      #!/usr/bin/env bash
+      printenv > .env
     env:
       - "DB_NAME=$_DB_NAME"
       - "DB_USER=$_DB_USER"
