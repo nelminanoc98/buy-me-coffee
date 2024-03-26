@@ -3,11 +3,9 @@ FROM ubuntu:23.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-    apt-get install -y git nginx php-fpm php-mysql mysql-client && \
+    apt-get install -y curl lsb-release git nginx php-fpm php-mysql mysql-client && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN apt-get install -y curl lsb-release
 
 RUN export GCSFUSE_REPO=gcsfuse-`lsb_release -c -s` \
     && echo "deb http://packages.cloud.google.com/apt $GCSFUSE_REPO main" | tee /etc/apt/sources.list.d/gcsfuse.list \
