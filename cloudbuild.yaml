@@ -41,6 +41,8 @@ steps:
         "80",
         "--add-cloudsql-instances",
         "optimum-legacy-412809:asia-southeast1:buy-me-coffee",
+        "--service-min-instances",
+        "1",
       ]
       #options:
       #logging: CLOUD_LOGGING_ONLY
