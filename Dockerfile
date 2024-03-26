@@ -25,7 +25,7 @@ RUN chown -R www-data:www-data /var/www/html/wp-content
 
 WORKDIR /var/www/html
 
-RUN gcsfuse --key-file /gcs_key.json --implicit-dirs buy-me-coffee-public /var/www/html/wp-content
+RUN gcsfuse --foreground --key-file /gcs_key.json --implicit-dirs buy-me-coffee-public /var/www/html/wp-content
 
 RUN composer install \
     --no-interaction \
