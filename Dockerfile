@@ -28,6 +28,7 @@ RUN cd /var/www/html/ && composer install \
     --no-dev \
     --prefer-dist
 
+RUN chown -R www-data:www-data /var/www/html/wp-content
 
 # Expose port
 EXPOSE 80
