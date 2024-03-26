@@ -12,15 +12,15 @@
 require __DIR__ . '/wp-load.php';
 
 // Redirect to HTTPS login if forced to use SSL.
-//if ( force_ssl_admin() && ! is_ssl() ) {
-//	if ( str_starts_with( $_SERVER['REQUEST_URI'], 'http' ) ) {
-//		wp_safe_redirect( set_url_scheme( $_SERVER['REQUEST_URI'], 'https' ) );
-//		exit;
-//	} else {
-//		wp_safe_redirect( 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
-//		exit;
-//	}
-//}
+if ( force_ssl_admin() && ! is_ssl() ) {
+	if ( str_starts_with( $_SERVER['REQUEST_URI'], 'http' ) ) {
+		wp_safe_redirect( set_url_scheme( $_SERVER['REQUEST_URI'], 'https' ) );
+		exit;
+	} else {
+		wp_safe_redirect( 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+		exit;
+	}
+}
 
 /**
  * Outputs the login page header.
