@@ -27,6 +27,8 @@ WORKDIR /var/www/html
 
 RUN mkdir /mnt/gcs
 
+RUN gcsfuse --key-file /gcs_key.json buy-me-coffee-public /mnt/gcs
+
 RUN mv /var/www/html/wp-content /var/www/html/wp-content-backup
 RUN ln -s /mnt/gcs /var/www/html/wp-content
 RUN cp -R /var/www/html/wp-content-backup/* /var/www/html/wp-content/
@@ -42,4 +44,4 @@ EXPOSE 80
 
 RUN service php8.1-fpm start
 
-CMD gcsfuse --key-file /gcs_key.json buy-me-coffee-public /mnt/gcs && nginx -g "daemon off;"
+CMD nginx -g "daemon off;"
