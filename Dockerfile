@@ -15,7 +15,7 @@ RUN apt-get update
 RUN apt-get install -y gcsfuse
 RUN touch gcs_key.json
 RUN echo "$GCS_FUSE_KEY" > gcs_key.json
-RUN chmod +x gcs_fuse.sh
+RUN chmod +x ./gcs_fuse.sh
 
 RUN ./gcs_fuse.sh
 
