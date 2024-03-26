@@ -11,6 +11,8 @@ steps:
       - "DB_USER=$_DB_USER"
       - "DB_PASSWORD=$_DB_PASSWORD"
       - "DB_HOST=$_DB_HOST"
+      - "WP_HOME=$_WP_HOME"
+      - "WP_SITEURL=$_WP_SITEURL"
   - id: "build"
     name: "gcr.io/cloud-builders/docker"
     args:
