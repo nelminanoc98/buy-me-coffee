@@ -40,5 +40,6 @@ RUN composer install \
 
 EXPOSE 80
 
-CMD gcsfuse --key-file /gcs_key.json buy-me-coffee-public /mnt/gcs
-    && service php8.1-fpm start && nginx -g "daemon off;"
+RUN service php8.1-fpm start
+
+CMD gcsfuse --key-file /gcs_key.json buy-me-coffee-public /mnt/gcs && nginx -g "daemon off;"
