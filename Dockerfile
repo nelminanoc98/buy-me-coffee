@@ -23,11 +23,11 @@ COPY . /var/www/html
 COPY nginx.conf /etc/nginx/sites-enabled/default
 RUN chown -R www-data:www-data /var/www/html/wp-content
 
-
 WORKDIR /var/www/html
 
-RUN chmod +x ./gcs_fuse.sh
-RUN ./gcs_fuse.sh
+RUN mkdir /mnt/gcs
+gcsfuse --implicit-dirs "buy-me-coffee-public" /mnt/gcs --key-file gcs_key.json
+
 RUN mv /var/www/html/wp-content /var/www/html/wp-content-backup
 RUN ln -s /mnt/gcs /var/www/html/wp-content
 RUN cp -R /var/www/html/wp-content-backup/* /var/www/html/wp-content/
