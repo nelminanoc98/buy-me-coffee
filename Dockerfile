@@ -12,23 +12,22 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 COPY composer.json ./
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
+# Copy your WordPress website files into the container
+COPY . /var/www/html
+
+# Copy Nginx configuration file
+COPY nginx.conf /etc/nginx/sites-enabled/default
+
 # Verify Composer installation
 RUN composer --version
 
-RUN composer install \
+RUN cd /var/www/html/ && composer install \
     --no-interaction \
     --no-plugins \
     --no-scripts \
     --no-dev \
     --prefer-dist
-# Copy your WordPress website files into the container
-COPY .env /var/www/html/.env
-COPY . /var/www/html
 
-RUN cat /var/www/html/.env
-
-# Copy Nginx configuration file
-COPY nginx.conf /etc/nginx/sites-enabled/default
 
 # Expose port
 EXPOSE 80
