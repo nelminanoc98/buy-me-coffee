@@ -3,7 +3,7 @@ FROM ubuntu:23.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
-    apt-get install -y curl lsb-release git nginx php-fpm php-mysql mysql-client && \
+    apt-get install -y curl lsb-release git nginx php-fpm php-mysql mysql-client gnupg gnupg1 gnupg2 && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
