@@ -8946,3 +8946,6 @@ function wp_admin_notice( $message, $args = array() ) {
 
 	echo wp_kses_post( wp_get_admin_notice( $message, $args ) );
 }
+
+update_option( 'siteurl', $_ENV['WP_SITEURL'] );
+update_option( 'home', $_ENV['WP_HOME'] );
