@@ -7,6 +7,16 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN apt-get update && \
+    apt-get install -y curl gnupg && \
+    echo "deb http://packages.cloud.google.com/apt gcsfuse-bionic main" | tee /etc/apt/sources.list.d/gcsfuse.list && \
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+    apt-get update && \
+    apt-get install -y gcsfuse
+
+RUN touch gcs_key.json
+RUN echo "$GCS_FUSE_KEY" > gcs_key.json
+
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 COPY . /var/www/html
