@@ -16,12 +16,20 @@ RUN apt-get update && \
 
 RUN touch gcs_key.json
 RUN echo "$GCS_FUSE_KEY" > gcs_key.json
+RUN chmod +x gcs_fuse.sh
+
+RUN ./gcs_fuse.sh
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 COPY . /var/www/html
 
 COPY nginx.conf /etc/nginx/sites-enabled/default
+RUN chown -R www-data:www-data /var/www/html/wp-content
+
+RUN mv /var/www/html/wp-content /var/www/html/wp-content-backup
+RUN ln -s /mnt/gcs /var/www/html/wp-content
+RUN cp -R /var/www/html/wp-content-backup/* /var/www/html/wp-content/
 
 WORKDIR /var/www/html
 
@@ -31,8 +39,6 @@ RUN composer install \
     --no-scripts \
     --no-dev \
     --prefer-dist
-
-RUN chown -R www-data:www-data /var/www/html/wp-content
 
 EXPOSE 80
 
