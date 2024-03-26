@@ -12,7 +12,7 @@ RUN export GCSFUSE_REPO=gcsfuse-`lsb_release -c -s` \
     && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 
 RUN apt-get update
-RUN apt-get install -y gcsfuse# Optional: Verify gcsfuse installation
+RUN apt-get install -y gcsfuse
 RUN touch gcs_key.json
 RUN echo "$GCS_FUSE_KEY" > gcs_key.json
 RUN chmod +x gcs_fuse.sh
