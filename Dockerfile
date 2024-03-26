@@ -26,7 +26,6 @@ RUN chown -R www-data:www-data /var/www/html/wp-content
 WORKDIR /var/www/html
 
 RUN mkdir /mnt/gcs
-RUN gcsfuse --key-file /gcs_key.json buy-me-coffee-public /mnt/gcs
 
 RUN mv /var/www/html/wp-content /var/www/html/wp-content-backup
 RUN ln -s /mnt/gcs /var/www/html/wp-content
@@ -42,4 +41,4 @@ RUN composer install \
 EXPOSE 80
 
 CMD gcsfuse --key-file /gcs_key.json buy-me-coffee-public /mnt/gcs
- service && php8.1-fpm start && nginx -g "daemon off;"
+    && service php8.1-fpm start && nginx -g "daemon off;"
