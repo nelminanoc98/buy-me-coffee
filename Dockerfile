@@ -7,14 +7,16 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# Add the gcsfuse repository to the package manager's sources list
+RUN echo "deb http://packages.cloud.google.com/apt gcsfuse-bionic main" | tee /etc/apt/sources.list.d/gcsfuse.list && \
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+
+# Update package lists and try installing gcsfuse again
 RUN apt-get update && \
-    apt-get install -y curl gnupg && \
-    echo "deb http://packages.cloud.google.com/apt gcsfuse-bionic main" | tee /etc/apt/sources.list.d/gcsfuse.list && \
-    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
-    apt-get update && \
     apt-get install -y gcsfuse
 
-RUN touch gcs_key.json
+# Optional: Verify gcsfuse installation
+RUN gcsfuse --versionRUN touch gcs_key.json
 RUN echo "$GCS_FUSE_KEY" > gcs_key.json
 RUN chmod +x gcs_fuse.sh
 
